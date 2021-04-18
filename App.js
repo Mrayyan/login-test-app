@@ -74,6 +74,7 @@ const App = ({signedInUser}) => {
       );
     }
   } else {
+    // User not signed in, open login page
     return (
       <NavigationContainer>
         <Stack.Navigator>
