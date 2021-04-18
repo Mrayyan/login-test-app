@@ -11,50 +11,72 @@ import {connect} from 'react-redux';
 const Stack = createStackNavigator();
 
 const App = ({signedInUser}) => {
-  if (signedInUser.name.length == 0) {
-    //User is not signed in
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            options={{headerShown: false}}
-            name="Home"
-            component={LogIn}
-          />
-          <Stack.Screen
-            options={{
-              headerTransparent: true,
-              headerTitle: '',
-            }}
-            name="SignUp"
-            component={SignUp}
-          />
-          <Stack.Screen
-            options={{
-              headerTransparent: true,
-              headerShown: false,
-              headerLeft: null,
-            }}
-            name="WelcomePage"
-            component={HomePage}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+  if (typeof signedInUser.name !== 'undefined' && signedInUser != null) {
+    if (signedInUser.name.length == 0) {
+      //User is not signed in
+      return (
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Home"
+              component={LogIn}
+            />
+            <Stack.Screen
+              options={{
+                headerTransparent: true,
+                headerTitle: '',
+              }}
+              name="SignUp"
+              component={SignUp}
+            />
+            <Stack.Screen
+              options={{
+                headerTransparent: true,
+                headerShown: false,
+                headerLeft: null,
+              }}
+              name="WelcomePage"
+              component={HomePage}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
+    } else {
+      //User is signed in, open welcome page
+      return (
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              options={{
+                headerTransparent: true,
+                headerShown: false,
+                headerLeft: null,
+              }}
+              name="WelcomePage"
+              component={HomePage}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Home"
+              component={LogIn}
+            />
+            <Stack.Screen
+              options={{
+                headerTransparent: true,
+                headerTitle: '',
+              }}
+              name="SignUp"
+              component={SignUp}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
+    }
   } else {
-    //User is signed in, open welcome page
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
-            options={{
-              headerTransparent: true,
-              headerShown: false,
-              headerLeft: null,
-            }}
-            name="WelcomePage"
-            component={HomePage}
-          />
           <Stack.Screen
             options={{headerShown: false}}
             name="Home"
@@ -67,6 +89,15 @@ const App = ({signedInUser}) => {
             }}
             name="SignUp"
             component={SignUp}
+          />
+          <Stack.Screen
+            options={{
+              headerTransparent: true,
+              headerShown: false,
+              headerLeft: null,
+            }}
+            name="WelcomePage"
+            component={HomePage}
           />
         </Stack.Navigator>
       </NavigationContainer>
